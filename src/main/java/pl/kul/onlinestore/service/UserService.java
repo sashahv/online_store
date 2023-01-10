@@ -23,6 +23,18 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User fetchUserById(Long userId){
+        return userRepository.findById(userId).orElseThrow(
+                () -> new UserNotFoundException(String.format("Użytkownik z indeksem [%d] nie został znaleziony", userId))
+        );
+    }
+
+    public User fetchUserByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new UserNotFoundException(String.format("Użytkownik: [%s] nie został znaleziony", email))
+        );
+    }
+
     public User registerUser(UserModel userModel) {
         User user = new User();
         user.setEmail(userModel.getEmail());
