@@ -1,5 +1,6 @@
 package pl.kul.onlinestore.controller;
 
+import pl.kul.onlinestore.entity.user.User;
 import pl.kul.onlinestore.entity.user.UserModel;
 import pl.kul.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,12 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<?> fetchUserByEmail(@PathVariable("email") String email){
+        User user = userService.fetchUserByEmail(email);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id}/update/")

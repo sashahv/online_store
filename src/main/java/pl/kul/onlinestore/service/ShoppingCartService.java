@@ -13,9 +13,7 @@ import pl.kul.onlinestore.exception.ShoppingCartNotFound;
 import pl.kul.onlinestore.repository.ShoppingCartRepository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -48,8 +46,7 @@ public class ShoppingCartService {
         ResponseOrderDTO responseOrderDTO = new ResponseOrderDTO();
         float amount = getCartAmount(orderDTO.getCartItems());
 
-        User user = userService.fetchUserById(17L);
-
+        User user = userService.fetchUserByEmail(orderDTO.getUserEmail());
         log.info("User was found successfully");
 
         Order order = new Order(orderDTO.getOrderDescription(), user, orderDTO.getCartItems());
@@ -64,8 +61,7 @@ public class ShoppingCartService {
         responseOrderDTO.setOrderId(order.getId());
         responseOrderDTO.setOrderDescription(orderDTO.getOrderDescription());
 
-        log.info("test push..");
-
+        log.info("ResponseOrderDTO generated successfully");
         return responseOrderDTO;
     }
 
@@ -94,10 +90,12 @@ public class ShoppingCartService {
                 availableQuantity = product.getAvailableQuantity() - cartItem.getQuantity();
             }
             totalCartAmount = totalCartAmount + singleCartAmount;
+            log.info("Total cart amount was counted successfully");
             product.setAvailableQuantity(availableQuantity);
             availableQuantity=0;
             cartItem.setProductName(product.getName());
             cartItem.setAmount(singleCartAmount);
+            log.info("Cart item was created successfully");
             productService.addProduct(product);
         }
         return totalCartAmount;

@@ -7,7 +7,6 @@ public class OnlineStoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineStoreApplication.class, args);
 	}
-
 }
 
 

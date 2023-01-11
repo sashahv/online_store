@@ -3,6 +3,7 @@ package pl.kul.onlinestore.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productId;
+    @NotBlank(message = "This field can't be blank")
     private String productName;
     private int quantity;
     private float amount;

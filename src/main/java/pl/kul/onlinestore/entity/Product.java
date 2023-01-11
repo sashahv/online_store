@@ -3,6 +3,8 @@ package pl.kul.onlinestore.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
 
@@ -18,6 +20,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @NotBlank(message = "This field can't be blank")
     private String name;
     private String description;
     private int availableQuantity;
