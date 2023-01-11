@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -33,7 +34,10 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    private String gender;
+    @NotBlank(message = "This field can't be blank")
     private String email;
+    @NotBlank(message = "This field can't be blank")
     private String password;
     private String role;
     private boolean enabled = false;
