@@ -15,7 +15,7 @@ import pl.kul.onlinestore.service.ShoppingCartService;
 
 @RestController
 @Log4j2
-@RequestMapping("")
+@RequestMapping("api/v1/orders")
 public class OrderController {
 
     private final ShoppingCartService shoppingCartService;
@@ -32,7 +32,7 @@ public class OrderController {
         return shoppingCartService.getShoppingCart(id);
     }
 
-    @GetMapping("/getOrder/{orderId}")
+    @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderDetails(@PathVariable Long orderId){
         Order order = orderService.fetchOrderById(orderId);
         return ResponseEntity.ok(order);

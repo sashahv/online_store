@@ -10,6 +10,7 @@ import pl.kul.onlinestore.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("api/v1")
 public class RegistrationController {
 
     private final UserService userService;
@@ -30,7 +31,7 @@ public class RegistrationController {
         return "Bad User";
     }
 
-    @PostMapping("/register")
+    @PostMapping("users/register")
     public String registerUser(@RequestBody UserModel userModel, final HttpServletRequest request){
         User user = userService.registerUser(userModel);
         publisher.publishEvent(new RegistrationCompleteEvent(

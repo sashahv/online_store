@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @Log4j2
-@RequestMapping("/products")
+@RequestMapping("api/v1/products")
 public class ProductController {
     private final ProductService productService;
 
@@ -20,7 +20,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
             productService.addProduct(product);
             return ResponseEntity.ok(String.format("Produkt: \"%s\" został dodany", product.getName()));
@@ -38,7 +38,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok(String.format("Produkt z indeksem: %d został usuniety", id));
