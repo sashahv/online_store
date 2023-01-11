@@ -35,9 +35,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String gender;
-    @NotBlank(message = "This field can't be blank")
     private String email;
-    @NotBlank(message = "This field can't be blank")
     private String password;
     private String role;
     private boolean enabled = false;

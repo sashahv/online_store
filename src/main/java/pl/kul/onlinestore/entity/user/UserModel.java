@@ -20,5 +20,6 @@ public class UserModel {
     private String email;
     @NotBlank(message = "This field can't be blank")
     private String password;
+    @NotBlank(message = "This field can't be blank")
     private String matchingPassword;
 }
