@@ -19,7 +19,6 @@ public class Category {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @NotBlank(message = "This field can't be blank")
     private String name;
     private String description;
 }

@@ -2,7 +2,7 @@ package pl.kul.onlinestore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.kul.onlinestore.entity.Order;
+import pl.kul.onlinestore.entity.order.Order;
 import pl.kul.onlinestore.exception.OrderNotFoundException;
 import pl.kul.onlinestore.repository.OrderRepository;
 

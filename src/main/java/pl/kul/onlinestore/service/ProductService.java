@@ -1,5 +1,7 @@
 package pl.kul.onlinestore.service;
 
+import pl.kul.onlinestore.entity.CartItem;
+import pl.kul.onlinestore.entity.order.Order;
 import pl.kul.onlinestore.entity.Product;
 import pl.kul.onlinestore.exception.ProductNotFoundException;
 import pl.kul.onlinestore.repository.ProductRepository;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
@@ -54,6 +56,17 @@ public class ProductService {
         productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(String.format("Produkt z indeksem [%d] nie był znaleziony", id)));
         productRepository.deleteById(id);
+    }
+
+    public void decreaseAvailableQuantityOfProduct(Order order) {
+        List<CartItem> cartItems = order.getShoppingCart().getCartItems();
+        for (CartItem cartItem : cartItems) {
+            Long productId = cartItem.getProductId();
+            Product product = fetchProductById(productId);
+            int availableQuantity = product.getAvailableQuantity() - cartItem.getQuantity();
+            product.setAvailableQuantity(availableQuantity);
+            productRepository.save(product);
+        }
     }
 
     public void updateProduct(Long id, Product product){

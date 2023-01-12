@@ -1,6 +1,5 @@
 package pl.kul.onlinestore.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.kul.onlinestore.entity.user.User;
@@ -35,19 +34,19 @@ public class VerificationToken {
         super();
         this.token = token;
         this.user = user;
-        this.expirationTime = calculateExpirationDate(EXPIRATION_TIME);
+        this.expirationTime = calculateExpirationDate();
     }
 
     public VerificationToken(String token){
         super();
         this.token = token;
-        this.expirationTime = calculateExpirationDate(EXPIRATION_TIME);
+        this.expirationTime = calculateExpirationDate();
     }
 
-    private Date calculateExpirationDate(int expirationTime) {
+    private Date calculateExpirationDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(new Date().getTime());
-        calendar.add(Calendar.MINUTE, expirationTime);
+        calendar.add(Calendar.MINUTE, VerificationToken.EXPIRATION_TIME);
         return new Date(calendar.getTime().getTime());
     }
 }

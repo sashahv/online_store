@@ -1,9 +1,7 @@
 package pl.kul.onlinestore.dto;
 
 import lombok.*;
-import pl.kul.onlinestore.entity.ShoppingCart;
-
-import java.util.List;
+import pl.kul.onlinestore.entity.order.DeliveryAddress;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +10,7 @@ import java.util.List;
 @Builder
 public class OrderDTO {
     private String orderDescription;
-    private List<ShoppingCart> cartItems;
+    private DeliveryAddress deliveryAddress;
+    private Long shoppingCartId;
     private String userEmail;
 }

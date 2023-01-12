@@ -1,23 +1,24 @@
 package pl.kul.onlinestore.entity;
 
 import lombok.*;
+import pl.kul.onlinestore.entity.order.Order;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
-    @NotBlank(message = "This field can't be blank")
-    private String productName;
-    private int quantity;
-    private float amount;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private List<CartItem> cartItems;
+    private BigDecimal amount;
 }
