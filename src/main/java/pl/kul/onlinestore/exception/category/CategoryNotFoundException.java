@@ -1,4 +1,4 @@
-package pl.kul.onlinestore.exception;
+package pl.kul.onlinestore.exception.category;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

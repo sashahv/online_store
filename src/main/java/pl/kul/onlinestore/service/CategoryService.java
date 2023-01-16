@@ -1,15 +1,10 @@
 package pl.kul.onlinestore.service;
 
 import pl.kul.onlinestore.entity.Category;
-import pl.kul.onlinestore.exception.BadRequestException;
-import pl.kul.onlinestore.exception.CategoryAlreadyExistsException;
-import pl.kul.onlinestore.exception.CategoryNotFoundException;
+import pl.kul.onlinestore.exception.category.CategoryAlreadyExistsException;
+import pl.kul.onlinestore.exception.category.CategoryNotFoundException;
 import pl.kul.onlinestore.repository.CategoryRepository;
-import pl.kul.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
