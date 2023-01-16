@@ -13,6 +13,7 @@ import pl.kul.onlinestore.entity.order.OrderStatus;
 import pl.kul.onlinestore.entity.user.User;
 import pl.kul.onlinestore.exception.ShoppingCartNotFoundException;
 import pl.kul.onlinestore.repository.ShoppingCartRepository;
+import pl.kul.onlinestore.service.user.UserService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -78,7 +79,6 @@ public class ShoppingCartService {
         deliveryAddress.setOrder(order);
         deliveryAddressService.createDeliveryAddress(deliveryAddress);
         order.setDeliveryAddressId(deliveryAddress.getId());
-
 
         order.setOrderStatus(OrderStatus.IN_PROCESS);
 
