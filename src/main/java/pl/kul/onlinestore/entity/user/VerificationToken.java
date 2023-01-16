@@ -1,8 +1,7 @@
-package pl.kul.onlinestore.entity;
+package pl.kul.onlinestore.entity.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.kul.onlinestore.entity.user.User;
 
 import javax.persistence.*;
 import java.util.Calendar;

@@ -2,7 +2,7 @@ package pl.kul.onlinestore.controller;
 
 import pl.kul.onlinestore.entity.user.User;
 import pl.kul.onlinestore.entity.user.UserModel;
-import pl.kul.onlinestore.service.UserService;
+import pl.kul.onlinestore.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

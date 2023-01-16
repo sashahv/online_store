@@ -1,4 +1,4 @@
-package pl.kul.onlinestore.repository;
+package pl.kul.onlinestore.repository.user;
 
 import pl.kul.onlinestore.entity.user.User;
 import org.springframework.data.repository.CrudRepository;

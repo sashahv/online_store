@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import pl.kul.onlinestore.entity.user.User;
 import pl.kul.onlinestore.event.RegistrationCompleteEvent;
-import pl.kul.onlinestore.service.UserService;
+import pl.kul.onlinestore.service.user.VerificationTokenService;
 
 import java.util.UUID;
 
@@ -14,11 +14,11 @@ import java.util.UUID;
 @Slf4j
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
 
-    private final UserService userService;
+    private final VerificationTokenService verificationTokenService;
 
     @Autowired
-    public RegistrationCompleteEventListener(UserService userService) {
-        this.userService = userService;
+    public RegistrationCompleteEventListener(VerificationTokenService verificationTokenService) {
+        this.verificationTokenService = verificationTokenService;
     }
 
 
@@ -27,7 +27,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         // stwórz verification token
         User user = event.getUser();
         String token = UUID.randomUUID().toString();
-        userService.saveVerificationTokenForUser(token, user);
+        verificationTokenService.saveVerificationTokenForUser(token, user);
         // email -> user
         String url = event.getApplicationUrl()
                 + "/api/v1/verifyRegistration?token="
