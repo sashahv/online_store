@@ -1,14 +1,10 @@
-package pl.kul.onlinestore.entity;
+package com.olekhv.onlinestore.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
 import java.math.BigDecimal;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data

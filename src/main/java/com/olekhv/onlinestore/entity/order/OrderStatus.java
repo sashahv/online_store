@@ -1,4 +1,4 @@
-package pl.kul.onlinestore.entity.order;
+package com.olekhv.onlinestore.entity.order;
 
 public enum OrderStatus {
     IN_PROCESS("In process"),
@@ -11,6 +11,14 @@ public enum OrderStatus {
     private String name;
 
     OrderStatus(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

@@ -1,9 +1,9 @@
-package pl.kul.onlinestore.event;
+package com.olekhv.onlinestore.event;
 
+import com.olekhv.onlinestore.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
-import pl.kul.onlinestore.entity.user.User;
 
 @Getter
 @Setter

@@ -1,16 +1,17 @@
-package pl.kul.onlinestore.service.user;
+package com.olekhv.onlinestore.service.user;
 
+import com.olekhv.onlinestore.exception.user.UserAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.kul.onlinestore.entity.user.PasswordModel;
-import pl.kul.onlinestore.entity.user.User;
-import pl.kul.onlinestore.entity.user.UserModel;
-import pl.kul.onlinestore.exception.user.InvalidPasswordException;
-import pl.kul.onlinestore.exception.user.PasswordsAreNotMatchedException;
-import pl.kul.onlinestore.exception.user.UserNotFoundException;
-import pl.kul.onlinestore.repository.user.UserRepository;
+import com.olekhv.onlinestore.entity.user.PasswordModel;
+import com.olekhv.onlinestore.entity.user.User;
+import com.olekhv.onlinestore.entity.user.UserModel;
+import com.olekhv.onlinestore.exception.user.InvalidPasswordException;
+import com.olekhv.onlinestore.exception.user.PasswordsAreNotMatchedException;
+import com.olekhv.onlinestore.exception.user.UserNotFoundException;
+import com.olekhv.onlinestore.repository.user.UserRepository;
 
 @Service
 @Slf4j
@@ -40,7 +41,8 @@ public class UserService {
     public User registerUser(UserModel userModel) {
         User user = new User();
         user.setGender(userModel.getGender().getName());
-        user.setEmail(userModel.getEmail());
+        String email = userModel.getEmail();
+        user.setEmail(email);
         user.setFirstName(userModel.getFirstName());
         user.setLastName(userModel.getLastName());
         user.setRole("USER");
@@ -99,15 +101,13 @@ public class UserService {
         log.info("Checking if old password is equal to new password...");
         if (!checkIfValidOldPassword(oldPassword, user)) {
             throw new PasswordsAreNotMatchedException("Stare hasło nie prawidłowe");
-        } else {
-                log.info("Checking on matching...");
-                if (newPassword.equals(matchingPassword)) {
-                    changePassword(newPassword, user);
-                } else {
-                    log.info("Passwords are not matched");
-                    throw new PasswordsAreNotMatchedException("Hasło nie zostało potwierdzone");
-                }
         }
+        log.info("Checking on matching...");
+        if (!newPassword.equals(matchingPassword)) {
+            throw new PasswordsAreNotMatchedException("Hasło nie zostało potwierdzone");
+        }
+
+        changePassword(newPassword, user);
     }
 
     private void changePassword(String newPassword, User user) {
@@ -124,11 +124,5 @@ public class UserService {
                 () -> new UserNotFoundException(String.format("Użytkownik z indeksem [%d] nie został znaleziony", id))
         );
         userRepository.deleteById(id);
-    }
-
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-                () -> new UserNotFoundException(String.format("Użytkownik: [%s] nie został znaleziony", email))
-        );
     }
 }
