@@ -25,7 +25,7 @@ class ShoppingCartServiceTest {
                 .build();
 
         CartItem cartItem = CartItem.builder()
-                .productId(product.getId())
+                .product(product)
                 .quantity(3)
                 .build();
 

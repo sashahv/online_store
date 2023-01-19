@@ -1,5 +1,6 @@
 package com.olekhv.onlinestore.service;
 
+import com.olekhv.onlinestore.dto.CartItemDTO;
 import com.olekhv.onlinestore.entity.CartItem;
 import com.olekhv.onlinestore.entity.Product;
 import com.olekhv.onlinestore.entity.ShoppingCart;
@@ -34,10 +35,22 @@ public class ShoppingCartService {
 
     public ShoppingCart generateShoppingCart(ShoppingCartDTO shoppingCartDTO){
         ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setCartItems(shoppingCartDTO.getCartItems());
-        shoppingCart.setAmount(BigDecimal.valueOf(countTotalAmountOfShoppingCart(shoppingCartDTO.getCartItems())));
+        List<CartItem> cartItems =  new ArrayList<>();
+        for (CartItemDTO cartItem : shoppingCartDTO.getCartItems()) {
+            cartItems.add(generateCartItem(cartItem));
+        }
+        shoppingCart.setCartItems(cartItems);
+        shoppingCart.setAmount(BigDecimal.valueOf(countTotalAmountOfShoppingCart(cartItems)));
 
         return shoppingCartRepository.save(shoppingCart);
+    }
+
+    public CartItem generateCartItem(CartItemDTO cartItemDTO){
+        Product product = productService.fetchProductById(cartItemDTO.getProductId());
+        CartItem cartItem = new CartItem();
+        cartItem.setProduct(product);
+        cartItem.setQuantity(cartItemDTO.getQuantity());
+        return cartItem;
     }
 
     public float countTotalAmountOfShoppingCart(List<CartItem> cartItems) {
@@ -54,7 +67,7 @@ public class ShoppingCartService {
     private float countSingleCartItemAmount(CartItem cartItem) {
         float cartItemAmount=0f;
         
-        Long productId = cartItem.getProductId();
+        Long productId = cartItem.getProduct().getId();
         Product product = productService.fetchProductById(productId);
         log.info("Product was found successfully / ProductId = {}", productId);
         float price = product.getPrice().floatValue();

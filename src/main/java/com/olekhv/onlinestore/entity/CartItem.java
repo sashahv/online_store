@@ -1,9 +1,6 @@
 package com.olekhv.onlinestore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 
@@ -17,7 +14,8 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Product product;
     private int quantity;
     private BigDecimal amount;
 }

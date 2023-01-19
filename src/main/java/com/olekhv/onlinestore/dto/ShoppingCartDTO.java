@@ -11,5 +11,5 @@ import java.util.List;
 @ToString
 @Builder
 public class ShoppingCartDTO {
-    private List<CartItem> cartItems;
+    private List<CartItemDTO> cartItems;
 }

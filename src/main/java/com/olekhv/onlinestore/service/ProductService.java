@@ -61,7 +61,7 @@ public class ProductService {
     public void decreaseAvailableQuantityOfProduct(Order order) {
         List<CartItem> cartItems = order.getShoppingCart().getCartItems();
         for (CartItem cartItem : cartItems) {
-            Long productId = cartItem.getProductId();
+            Long productId = cartItem.getProduct().getId();
             Product product = fetchProductById(productId);
             int availableQuantity = product.getAvailableQuantity() - cartItem.getQuantity();
             product.setAvailableQuantity(availableQuantity);
