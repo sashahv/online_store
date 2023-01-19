@@ -49,8 +49,4 @@ class ProductRepositoryTest {
 
        assertTrue(product1.isPresent());
     }
-
-    @Test
-    void should_create_new_product_with_category(){
-    }
 }

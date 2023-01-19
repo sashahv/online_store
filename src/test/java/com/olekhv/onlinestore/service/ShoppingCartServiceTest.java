@@ -20,8 +20,7 @@ class ShoppingCartServiceTest {
     @Test
     public void should_check_if_total_amount_of_shopping_cart_is_bigger_than_0(){
         Product product = Product.builder()
-                .id(1L)
-                .price(BigDecimal.valueOf(150))
+                .id(3L)
                 .build();
 
         CartItem cartItem = CartItem.builder()
@@ -31,15 +30,6 @@ class ShoppingCartServiceTest {
 
         float totalAmountOfShoppingCart = shoppingCartService.countTotalAmountOfShoppingCart(Collections.singletonList(cartItem));
 
-        System.out.println(totalAmountOfShoppingCart);
+        assertTrue(totalAmountOfShoppingCart>0);
     }
-
-//    @Test
-//    public void should_check_if_shopping_cart_has_products(){
-//        ShoppingCart shoppingCart = entityManager.find(ShoppingCart.class, 9L);
-//
-//        int size = entityManager.persist(shoppingCart).getCartItems().size();
-//
-//        assertTrue(size>0);
-//    }
 }
