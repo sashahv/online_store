@@ -40,14 +40,14 @@ To interact with the project using existing servers, you need:
 ### Endpoints
 The Online Store API has the following endpoints:
 
-### Products
-GET /products: Retrieves a list of all products in the store.
-GET /products/{id} Retrieves a specific product by its id.
-POST /products: Adds a new product to the store.
-DELETE /products/:id: Deletes a product by its id.
-PUT /products/{id} Updates an existing product by its id.
+#### Products
+GET /products: Retrieves a list of all products in the store.\
+GET /products/{id} Retrieves a specific product by its id.\
+POST /products: Adds a new product to the store.\
+DELETE /products/:id: Deletes a product by its id.\
+PUT /products/{id} Updates an existing product by its id.\\
 
-### Categories
+#### Categories
 GET /categories: Retrieves a list of all categories.
 GET /categories/{id} Retrieves a specific category by its id.
 GET /categories/{id}/products: Retrieves a list of all products within a specific category
