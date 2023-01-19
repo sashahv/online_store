@@ -1,9 +1,11 @@
 package com.olekhv.onlinestore.service;
 
 import com.olekhv.onlinestore.entity.Category;
+import com.olekhv.onlinestore.entity.Product;
 import com.olekhv.onlinestore.exception.category.CategoryAlreadyExistsException;
 import com.olekhv.onlinestore.exception.category.CategoryNotFoundException;
 import com.olekhv.onlinestore.repository.CategoryRepository;
+import com.olekhv.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     public List<Category> showAllCategories() {
@@ -45,21 +49,20 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-//    public ResponseEntity<Void> updateCategory(Long id, Category category) {
-//
-//        if (categoryRepository.findById(id).isEmpty()) {
-//            throw new BadRequestException("Category with index:" + id + " does not exist");
-//        }
-//        categoryRepository
-//                .findById(id)
-//                .ifPresent(updatedCategory -> {
-//                    updatedCategory.setName(category.getName());
-//                    updatedCategory.setDescription(category.getDescription());
-//                    categoryRepository.save(updatedCategory);
-//                });
-//        HttpHeaders header = new HttpHeaders();
-//        header.add("description", "Updating category");
-//
-//        return ResponseEntity.status(HttpStatus.OK).headers(header).build();
-//    }
+    public List<Product> fetchAllProductsFromCategory(Long id) {
+        List<Product> products = productRepository.findAllProductsByCategoryId(id);
+        return products;
+    }
+
+    public Category updateCategory(Long id, Category category) {
+        categoryRepository.findById(id).orElseThrow(
+                () -> new CategoryNotFoundException(String.format("Kategoria z indeksem [%d] nie była znaleziona", id))
+        );
+
+        Category updatedCategory = new Category();
+        updatedCategory.setName(category.getName());
+        updatedCategory.setDescription(category.getDescription());
+        categoryRepository.save(updatedCategory);
+        return updatedCategory;
+    }
 }

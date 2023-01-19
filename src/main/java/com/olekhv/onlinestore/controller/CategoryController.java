@@ -1,6 +1,7 @@
 package com.olekhv.onlinestore.controller;
 
 import com.olekhv.onlinestore.entity.Category;
+import com.olekhv.onlinestore.entity.Product;
 import com.olekhv.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,22 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<?> showAllCategory() {
         List<Category> categories = categoryService.showAllCategories();
         return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<?> getCategoryById(@PathVariable("id") Long id) {
         Category category = categoryService.getCategoryByID(id);
         return ResponseEntity.ok(category);
+    }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<?> fetchAllProductsFromCategory(@PathVariable("id") Long categoryId){
+        List<Product> products = categoryService.fetchAllProductsFromCategory(categoryId);
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping("")
@@ -38,10 +45,16 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {
             categoryService.deleteCategory(id);
             return ResponseEntity.ok(
                     String.format("Categoria: \"%s\" została usunięta",
                             categoryService.getCategoryByID(id).getName()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
+        Category updatedCategory = categoryService.updateCategory(id, category);
+        return ResponseEntity.ok(updatedCategory);
     }
 }
