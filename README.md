@@ -37,10 +37,10 @@ To interact with the project using existing servers, you need:
 5. After selecting the endpoints (GET, PUT, POST, DELETE) and entering the link URL, you will be able to enter Body (if necessary) to change it.
 
 ## Using API
-##Endpoints
+-- Endpoints
 The Online Store API has the following endpoints:
 
-## Products
+- Products
 GET /products: Retrieves a list of all products in the store.
 GET /products/{id} Retrieves a specific product by its id.
 POST /products: Adds a new product to the store.
