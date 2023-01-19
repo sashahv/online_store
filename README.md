@@ -4,7 +4,7 @@
 2. [Technologies](#technologies)
 3. [Installation](#installation)
 4. [Collaboration](#collaboration)
-5. [Using API](#using-api)
+5. [Endpoints](#endpoints)
 6. [FAQs](#faqs)
 ### General Info
 ***
@@ -36,7 +36,6 @@ To interact with the project using existing servers, you need:
 4. Input link - http://localhost:8080/api/v1/{endpoint_name}/
 5. After selecting the endpoints (GET, PUT, POST, DELETE) and entering the link URL, you will be able to enter Body (if necessary) to change it.
 
-## Using API
 ## Endpoints
 The Online Store API has the following endpoints:
 
