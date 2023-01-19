@@ -20,12 +20,15 @@ import java.util.*;
 public class ShoppingCartService {
     private final ProductService productService;
     private final ShoppingCartRepository shoppingCartRepository;
+    private final CartItemService cartItemService;
 
     @Autowired
     public ShoppingCartService(ProductService productService,
-                               ShoppingCartRepository shoppingCartRepository) {
+                               ShoppingCartRepository shoppingCartRepository,
+                               CartItemService cartItemService) {
         this.productService = productService;
         this.shoppingCartRepository = shoppingCartRepository;
+        this.cartItemService = cartItemService;
     }
 
     public ShoppingCart fetchShoppingCartById(Long id) {
@@ -37,20 +40,12 @@ public class ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         List<CartItem> cartItems =  new ArrayList<>();
         for (CartItemDTO cartItem : shoppingCartDTO.getCartItems()) {
-            cartItems.add(generateCartItem(cartItem));
+            cartItems.add(cartItemService.generateCartItem(cartItem));
         }
         shoppingCart.setCartItems(cartItems);
         shoppingCart.setAmount(BigDecimal.valueOf(countTotalAmountOfShoppingCart(cartItems)));
 
         return shoppingCartRepository.save(shoppingCart);
-    }
-
-    public CartItem generateCartItem(CartItemDTO cartItemDTO){
-        Product product = productService.fetchProductById(cartItemDTO.getProductId());
-        CartItem cartItem = new CartItem();
-        cartItem.setProduct(product);
-        cartItem.setQuantity(cartItemDTO.getQuantity());
-        return cartItem;
     }
 
     public float countTotalAmountOfShoppingCart(List<CartItem> cartItems) {
