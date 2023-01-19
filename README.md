@@ -44,7 +44,7 @@ The Online Store API has the following endpoints:
 **GET** /products/{id} Retrieves a specific product by its id.\
 **POST** /products: Adds a new product to the store.\
 **DELETE** /products/{id} Deletes a product by its id.\
-**PUT** /products/{id} Updates an existing product by its id.\\
+**PUT** /products/{id} Updates an existing product by its id.\
 
 ### Categories
 **GET** /categories: Retrieves a list of all categories.
