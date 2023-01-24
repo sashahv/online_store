@@ -1,10 +1,14 @@
 package com.olekhv.onlinestore.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.olekhv.onlinestore.entity.order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -36,6 +40,11 @@ public class User {
     private String email;
     private String password;
     private String role;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> order;
+
     private boolean enabled = false;
 }
 

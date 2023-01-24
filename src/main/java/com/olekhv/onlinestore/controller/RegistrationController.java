@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/users")
 public class RegistrationController {
     private final UserService userService;
     private final ApplicationEventPublisher publisher;
@@ -32,7 +32,7 @@ public class RegistrationController {
         this.verificationTokenService = verificationTokenService;
     }
 
-    @PostMapping("users/register")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserModel userModel, final HttpServletRequest request) {
         User user = userService.registerUser(userModel);
         publisher.publishEvent(new RegistrationCompleteEvent(

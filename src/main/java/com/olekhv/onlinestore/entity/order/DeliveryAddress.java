@@ -23,7 +23,7 @@ public class DeliveryAddress {
     private String zipCode;
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "deliveryAddress")
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 }

@@ -59,12 +59,12 @@ public class OrderService {
 
         DeliveryAddress deliveryAddress = orderDTO.getDeliveryAddress();
 
-        Order order = generateOrder(orderDTO, shoppingCart, user, deliveryAddress);
+        Order order = generateOrder(orderDTO, shoppingCart, user);
         log.info("Order processed successfully");
 
         deliveryAddress.setOrder(order);
         deliveryAddressService.createDeliveryAddress(deliveryAddress);
-        order.setDeliveryAddressId(deliveryAddress.getId());
+        order.setDeliveryAddress(deliveryAddress);
 
         order.setOrderStatus(OrderStatus.IN_PROCESS);
 
@@ -74,12 +74,11 @@ public class OrderService {
         return getResponseOrderDTO(orderDTO, responseOrderDTO, amount, order);
     }
 
-    private Order generateOrder(OrderDTO orderDTO, ShoppingCart shoppingCart, User user, DeliveryAddress deliveryAddress) {
+    private Order generateOrder(OrderDTO orderDTO, ShoppingCart shoppingCart, User user) {
         Order order = new Order();
         order.setOrderDescription(orderDTO.getOrderDescription());
         order.setUser(user);
         order.setShoppingCart(shoppingCart);
-        order.setDeliveryAddressId(deliveryAddress.getId());
         order.setOrderStatus(order.getOrderStatus());
         order = saveOrder(order);
         return order;

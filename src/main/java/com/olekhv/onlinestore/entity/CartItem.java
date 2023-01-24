@@ -1,5 +1,6 @@
 package com.olekhv.onlinestore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -18,4 +19,9 @@ public class CartItem {
     private Product product;
     private int quantity;
     private BigDecimal amount;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private ShoppingCart shoppingCart;
 }

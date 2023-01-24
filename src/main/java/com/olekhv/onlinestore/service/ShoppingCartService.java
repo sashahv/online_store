@@ -68,6 +68,12 @@ public class ShoppingCartService {
         float price = product.getPrice().floatValue();
         productService.addProduct(product);
 
+        cartItemAmount = getCartItemAmount(cartItem, product, price);
+        return cartItemAmount;
+    }
+
+    private float getCartItemAmount(CartItem cartItem, Product product, float price) {
+        float cartItemAmount;
         if(product.getAvailableQuantity() < cartItem.getQuantity()) {
             cartItemAmount = price * product.getAvailableQuantity();
             cartItem.setQuantity(product.getAvailableQuantity());

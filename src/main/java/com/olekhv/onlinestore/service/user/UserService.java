@@ -1,10 +1,5 @@
 package com.olekhv.onlinestore.service.user;
 
-import com.olekhv.onlinestore.exception.user.UserAlreadyExistsException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import com.olekhv.onlinestore.entity.user.PasswordModel;
 import com.olekhv.onlinestore.entity.user.User;
 import com.olekhv.onlinestore.entity.user.UserModel;
@@ -12,6 +7,10 @@ import com.olekhv.onlinestore.exception.user.InvalidPasswordException;
 import com.olekhv.onlinestore.exception.user.PasswordsAreNotMatchedException;
 import com.olekhv.onlinestore.exception.user.UserNotFoundException;
 import com.olekhv.onlinestore.repository.user.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
@@ -54,31 +53,24 @@ public class UserService {
     }
 
     public void updateUser(Long id, UserModel userModel) {
-        if (userRepository.findById(id).isEmpty()) {
-            throw new UserNotFoundException(String.format("Użytkownik z indeksem [%d] nie został znaleziony", id));
-        }
-
-        String email = userModel.getEmail();
-
-        User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UserNotFoundException(String.format("Użytkownik: [%s] nie został znaleziony", email))
-        );
-
-        userRepository
-                .findById(id)
-                .ifPresent(updatedUser -> {
-                    updatedUser.setEmail(userModel.getEmail());
-                    updatedUser.setFirstName(userModel.getFirstName());
-                    updatedUser.setLastName(userModel.getLastName());
-                    updatedUser.setGender(userModel.getGender().getName());
-                    userRepository.save(updatedUser);
+        userRepository.findById(id).ifPresentOrElse(
+                user ->
+                {
+                    user.setEmail(userModel.getEmail());
+                    user.setFirstName(userModel.getFirstName());
+                    user.setLastName(userModel.getLastName());
+                    user.setGender(userModel.getGender().getName());
+                    userRepository.save(user);
+                },
+                () -> {
+                    throw new UserNotFoundException(String.format("Użytkownik: [%s] nie został znaleziony", id));
                 });
     }
 
     public void generatePasswordIfMatches(User user,
                                           String password,
                                           String matchingPassword) {
-        if(passwordEncoder.matches(password, user.getPassword())){
+        if (passwordEncoder.matches(password, user.getPassword())) {
             throw new InvalidPasswordException("Nowe hasło jest rowne staremu");
         }
 
@@ -115,14 +107,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private boolean checkIfValidOldPassword(String oldPassword, User user) {
+    public boolean checkIfValidOldPassword(String oldPassword, User user) {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
     public void deleteUser(Long id) {
-        userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException(String.format("Użytkownik z indeksem [%d] nie został znaleziony", id))
+        userRepository.findById(id).ifPresentOrElse(
+                user -> {
+                    userRepository.deleteById(id);
+                },
+                () -> {
+                    throw new UserNotFoundException(String.format("Użytkownik z indeksem [%d] nie został znaleziony", id));
+                }
         );
-        userRepository.deleteById(id);
     }
 }

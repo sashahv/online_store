@@ -19,9 +19,11 @@ public class Order {
 
     private String orderDescription;
 
-    private Long deliveryAddressId;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "delivery_address_id", referencedColumnName = "id")
+    private DeliveryAddress deliveryAddress;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

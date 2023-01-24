@@ -45,6 +45,7 @@ public class VerificationTokenService {
         }
 
         user.setEnabled(true);
+        verificationTokenRepository.delete(verificationToken);
         userRepository.save(user);
         return "valid";
     }

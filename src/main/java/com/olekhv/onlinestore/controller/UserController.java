@@ -33,7 +33,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-
     @PostMapping("/resetPassword")
     public String resetPassword(@RequestBody PasswordModel passwordModel,
                                 HttpServletRequest request) {
@@ -71,7 +70,7 @@ public class UserController {
         userService.changeExistingPasswordIfMatches(passwordModel);
         return ResponseEntity.ok("Hasło zostało zapisane");
     }
-    @PutMapping("/{id}/update/")
+    @PutMapping("/{id}/update")
     public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserModel userModel) {
             userService.updateUser(id, userModel);
             return ResponseEntity.ok("Zmiany do użytkownika zostały zapisane");
