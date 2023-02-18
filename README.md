@@ -24,19 +24,16 @@ A list of technologies used within the project:
 ***
 A little intro about the installation.
 ```
-$ git clone https://github.com/kr5ture-edu/lp-awrsp-2022-2023-assessment-project-gr-0.git
+$ git clone https://github.com/sashahv/onlinestore-api.git
 $ cd ../path/to/the/file
 $ npm install
 $ npm start
 ```
 ## Collaboration
 ***
-To interact with the project using existing servers, you need:
-1. Install Docker, after it will be necessary to create new connection (opening local server).
-2. Download Postman or another API testing system, open it
-3. Run application
-4. Input link - http://localhost:8080/api/v1/{endpoint_name}/
-5. After selecting the endpoints (GET, PUT, POST, DELETE) and entering the link URL, you will be able to enter Body (if necessary) to change it.
+- Clone the repository to your local machine
+- Navigate to the project directory and run the following command: ./mvnw spring-boot:run
+- Access the application by opening a web browser and navigating to http://localhost:8080
 
 ### A little bit about endpoints
 **GET** - getting information (e.g. getting products by their index, showing all users or categories)\
