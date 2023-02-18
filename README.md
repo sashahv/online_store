@@ -24,10 +24,8 @@ A list of technologies used within the project:
 ***
 A little intro about the installation.
 ```
+$ cd ../path/to/the/folder
 $ git clone https://github.com/sashahv/onlinestore-api.git
-$ cd ../path/to/the/file
-$ npm install
-$ npm start
 ```
 ## Collaboration
 ***
